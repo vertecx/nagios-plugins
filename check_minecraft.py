@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-#
-# Copyright (C) 2012 Petter Jönsson
+# coding=utf8
+# Copyright (C) 2012 Petter JÃ¶nsson
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -97,10 +97,14 @@ def get_server_info(host, port, num_checks, timeout, verbose):
 
 	# Decode and split returned skipping the first two bytes.
 	info = data[3:].decode(MC_ENCODING).split(MC_DELIMITER)
+	motd = info[:]
+	del motd[-1] # removing max_players
+	del motd[-1] # removing players
+	motd = ''.join(motd).replace("\n","") # removing newlines
 
-	return {'motd': info[0],
-			'players': int(info[1]),
-			'max_players': int(info[2]),
+	return {'motd': motd,
+			'players': int(info[-2]),
+			'max_players': int(info[-1]),
 			'byte_count': byte_count,
 			'response_time': average_response}
 
