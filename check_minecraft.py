@@ -134,7 +134,7 @@ def main():
 			print(OUTPUT_WARNING.format("Unexpected MOTD, {0}".format(info['motd']), info['byte_count'], info['response_time'], args.warning, args.critical, args.timeout))
 			sys.exit(STATE_WARNING)
 
-	except socket.error, msg:
+	except socket.error as msg:
 		print(OUTPUT_EXCEPTION.format(msg))
 		sys.exit(STATE_CRITICAL)
 
